@@ -49,6 +49,11 @@ for(let index = 0; index < tabs.length; index++) {
     if(tabs[index].innerText == currentTab) {
         tabs[index].style.backgroundColor = "var(--primary-very-light)";
     }
+    if(tabs[index].innerText == "Home") {
+        if (currentTab == "Index") {
+            tabs[index].style.backgroundColor = "var(--primary-very-light)";
+        }
+    }
 }
 
 // usefull functions

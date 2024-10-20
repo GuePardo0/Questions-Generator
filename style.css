@@ -193,7 +193,6 @@ header {
 }
 
 .welcome {
-    width: 100vw;
     padding-top: 40px;
     padding-bottom: 40px;
     text-align: center;
@@ -202,11 +201,16 @@ header {
 }
 
 h1 {
-    width: 100vw;
     padding-bottom: 10px;
     text-align: center;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 720px) {
+    .sidebaropener {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 390px) {
