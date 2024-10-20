@@ -139,6 +139,15 @@ header {
     top: calc(50vh - 46.5px);
 }
 
+.sidebarcloser_mobile {
+    display: none;
+    position: fixed;
+    top: 73px;
+    left: 250px;
+    width: calc(100vw - 250px);
+    height: calc(100vh - 73px);
+}
+
 .sidebar {
     position: fixed;
     top: 73px;

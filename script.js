@@ -1,6 +1,7 @@
 let sidebar = document.getElementById("sidebar");
 let sidebarOpener = document.getElementById("sidebaropener");
 let sidebarOpenerArrow = document.getElementById("sidebaropenerarrow");
+let sidebarCloserMobile = document.getElementById("sidebarcloser_mobile");
 let sidebarIsOpen = false;
 let numberOfFields = 2;
 let subdivisionIsOpen = [false, false];
@@ -26,8 +27,11 @@ if(localStorage.getItem("sidebarIsOpen") == "true") {
     sidebar.classList.add('open');
     sidebarOpener.classList.add('open');
     sidebarIsOpen = true;
-
     sidebarOpenerArrow.src = mainFolder + "assets/leftarrow.png";
+    
+    if(window.innerWidth <= 720) {
+        sidebarCloserMobile.style.display = "block";
+    }
 }
 for(let fieldIndex = 0; fieldIndex < numberOfFields; fieldIndex++) {
     let field = getFieldByIndex(fieldIndex);
@@ -85,10 +89,16 @@ function openCloseSidebar() {
     if(sidebarIsOpen == true) {
         sidebarOpenerArrow.src = mainFolder + "assets/rightarrow.png";
         sidebarIsOpen = false;
+        if(window.innerWidth <= 720) {
+            sidebarCloserMobile.style.display = "none";
+        }
     }
     else {
         sidebarOpenerArrow.src = mainFolder + "assets/leftarrow.png";
         sidebarIsOpen = true;
+        if(window.innerWidth <= 720) {
+            sidebarCloserMobile.style.display = "block";
+        }
     }
 }
 
