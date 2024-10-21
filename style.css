@@ -17,12 +17,13 @@ header {
     display: flex;
     background-color: var(--primary);
     width: 100vw;
-    height: 73px;
+    height: 72px;
     justify-content: space-between;
+    z-index: 1;
 }
 
 .filler {
-    height: 73px;
+    height: 72px;
 }
 
 .leftcontainer {
@@ -56,15 +57,18 @@ header {
     height: 100%;
     margin-right: 3.125%;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
 }
 
 .searchbar {
     display: flex;
     background-color: white;
-    width: 296.8px;
-    height: 50%;
-    border-radius: 100vw;
+    width: 300px;
+    height: 40px;
+    border-top-left-radius: 21.6px;
+    border-top-right-radius: 21.6px;
+    border-bottom-left-radius: 21.6px;
+    border-bottom-right-radius: 21.6px;
     border-style: solid;
     border-color: var(--searchbar);
     border-width: 2px;
@@ -73,7 +77,7 @@ header {
 
 .searchbar .inputbox {
     display: flex;
-    width: calc(95% - 36.5px);
+    width: calc(95% - 36px);
     height: 100%;
     border-top-left-radius: 100vw;
     border-bottom-left-radius: 100vw;
@@ -115,12 +119,41 @@ header {
     background-color: var(--ascent);
 }
 
+.searchbarsuggestions {
+    position: fixed;
+    width: 303.2px;
+    top: 57.6px;
+}
+
+.searchbarsuggestions .suggestion {
+    display: flex;
+    background-color: white;
+    height: 39.7px;
+    border-style: solid;
+    border-color: var(--searchbar);
+    border-width: 2px;
+    border-top-width: 0px;
+    align-items: center;
+}
+
+.searchbarsuggestions a {
+    width: 100%;
+    height: 100%;
+    line-height: 39.7px;
+    padding-left: 24.15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    cursor: pointer;
+}
+
 .sidebaropener {
     position: fixed;
-    top: 73px;
+    top: 72px;
     left: 0px;
     width: 20px;
-    height: calc(100vh - 73px);
+    height: calc(100vh - 72px);
     cursor: pointer;
     background-color: var(--ascent-very-transparent);
 }
@@ -142,18 +175,18 @@ header {
 .sidebarcloser_mobile {
     display: none;
     position: fixed;
-    top: 73px;
+    top: 72px;
     left: 250px;
     width: calc(100vw - 250px);
-    height: calc(100vh - 73px);
+    height: calc(100vh - 72px);
 }
 
 .sidebar {
     position: fixed;
-    top: 73px;
+    top: 72px;
     left: -250px;
     width: 250px;
-    height: calc(100vh - 73px);
+    height: calc(100vh - 72px);
     background-color: var(--secondary);
     justify-content: center;
 }
@@ -167,8 +200,7 @@ header {
     align-items: center;
 }
 
-.sidebar .subdivision {
-    display: flex;
+.sidebar .subject {
     display: none;
 }
 
@@ -179,9 +211,9 @@ header {
     line-height: 35px;
     padding-left: 40px;
     text-decoration: none;
+    font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 18px;
     color: var(--sidebartext);
     cursor: pointer;
 }
@@ -225,5 +257,9 @@ h1 {
 @media screen and (max-width: 390px) {
     .searchbar {
         width: 240px;
+    }
+
+    .searchbarsuggestions {
+        width: 243.2px;
     }
 }

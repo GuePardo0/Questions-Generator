@@ -2,9 +2,11 @@ let sidebar = document.getElementById("sidebar");
 let sidebarOpener = document.getElementById("sidebaropener");
 let sidebarOpenerArrow = document.getElementById("sidebaropenerarrow");
 let sidebarCloserMobile = document.getElementById("sidebarcloser_mobile");
-let sidebarIsOpen = false;
-let numberOfFields = 2;
-let subdivisionIsOpen = [false, false];
+let suggestionsBox = document.getElementById("searchbarsuggestions");
+let searchbar = document.getElementById("searchbar");
+let tabs = document.getElementsByClassName("tab");
+let fields = document.getElementsByClassName("field");
+let subjects = document.getElementsByClassName("subject");
 
 // get the path
 let mainFolder = "";
@@ -20,43 +22,34 @@ for(let index = 6; index < fullpath.length; index++) {
     }
     currentTab = fullpath[fullpath.length-index] + currentTab;
 }
-currentTab = capitalizeFirstLetter(currentTab);
 
 // remember stuff that were done in other tabs
 if(localStorage.getItem("sidebarIsOpen") == "true") {
     sidebar.classList.add('open');
     sidebarOpener.classList.add('open');
-    sidebarIsOpen = true;
     sidebarOpenerArrow.src = mainFolder + "assets/leftarrow.png";
     
     if(window.innerWidth <= 720) {
         sidebarCloserMobile.style.display = "block";
     }
 }
-for(let fieldIndex = 0; fieldIndex < numberOfFields; fieldIndex++) {
-    let field = getFieldByIndex(fieldIndex);
-    let subdivisions = document.getElementsByClassName(field);
-    let arrow = document.getElementById(field+"_arrow");
+for(let fieldIndex = 0; fieldIndex < fields.length; fieldIndex++) {
+    let field = fields[fieldIndex];
+    let arrow = document.getElementById(field.dataset.field+"_arrow");
+    let fieldSubjects = getFieldSubjects(field);
 
-    if(localStorage.getItem(`field${fieldIndex}IsOpen`) == "true") {
-        for(let index = 0; index < subdivisions.length; index++) {
-            subdivisions[index].style.display = "flex";
+    if(localStorage.getItem(`field${field.dataset.field}IsOpen`) == "true") {
+        for(let index = 0; index < fieldSubjects.length; index++) {
+            fieldSubjects[index].style.display = "flex";
         }
         arrow.src = mainFolder + "assets/downarrow.png";
-        subdivisionIsOpen[fieldIndex] = true;
     }
 }
 
 // highlight the current tab
-let tabs = document.getElementsByClassName("tab");
 for(let index = 0; index < tabs.length; index++) {
-    if(tabs[index].innerText == currentTab) {
+    if(tabs[index].dataset.tab == currentTab) {
         tabs[index].style.backgroundColor = "var(--primary-very-light)";
-    }
-    if(tabs[index].innerText == "Home") {
-        if (currentTab == "Index") {
-            tabs[index].style.backgroundColor = "var(--primary-very-light)";
-        }
     }
 }
 
@@ -64,21 +57,46 @@ for(let index = 0; index < tabs.length; index++) {
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
-function getFieldByIndex(index) {
-    let field = "No field with this index";
-    if(index == 0) {
-        field = "calculus";
+function getFieldSubjects(field) {
+    let fieldSubjects = [];
+    for(let index = 0; index < subjects.length; index++) {
+        if(subjects[index].dataset.field == field.dataset.field) {
+            fieldSubjects.push(subjects[index]);
+        }
     }
-    if(index == 1) {
-        field = "analiticgeometry";
-    }
-    return field;
+    return fieldSubjects;
 }
 
 
 
-// sidebar function
+// search bar function
+function showSuggestions(str) {
+    str = str.toLowerCase();
+    if(str.length == 0) {
+        suggestionsBox.innerHTML = "";
+        searchbar.style = "border-bottom-left-radius: 21.6px; border-bottom-right-radius: 21.6px;"
+        return;
+    }
+    else {
+        let numberOfSuggestions = 0;
+        suggestionsBox.innerHTML = "";
+        for(let index = 0; index < subjects.length; index++) {
+            if(subjects[index].dataset.subject.includes(str)) {
+                suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" href="${mainFolder}subjects/${subjects[index].dataset.field}/${subjects[index].dataset.tab}.html">${capitalizeFirstLetter(subjects[index].dataset.subject)}</a></div>`;
+                numberOfSuggestions++;
+            }
+        }
+        if(numberOfSuggestions == 0) {
+            suggestionsBox.innerHTML += `<div class="suggestion"><a style="cursor: default">Page not found</a></div>`;
+        }
+        let suggestions = document.getElementsByClassName("suggestion");
+        searchbar.style = "border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;"
+        suggestions[suggestions.length-1].style = "border-bottom-left-radius: 21.6px; border-bottom-right-radius: 21.6px;"
+        document.getElementsByClassName("suggestion-link")[numberOfSuggestions-1].style = "border-bottom-left-radius: 21.6px; border-bottom-right-radius: 21.6px;";
+    }
+}
+
+// open and close sidebar function
 function openCloseSidebar() {
     sidebar.classList.toggle("open");
     sidebar.style.transition = "left 0.4s";
@@ -86,42 +104,38 @@ function openCloseSidebar() {
     sidebarOpener.style.transition = "left 0.4s";
     localStorage.setItem("sidebarIsOpen", sidebar.classList.contains("open"));
 
-    if(sidebarIsOpen == true) {
+    if(localStorage.getItem("sidebarIsOpen") == "true") {
         sidebarOpenerArrow.src = mainFolder + "assets/rightarrow.png";
-        sidebarIsOpen = false;
         if(window.innerWidth <= 720) {
             sidebarCloserMobile.style.display = "none";
         }
     }
     else {
         sidebarOpenerArrow.src = mainFolder + "assets/leftarrow.png";
-        sidebarIsOpen = true;
         if(window.innerWidth <= 720) {
             sidebarCloserMobile.style.display = "block";
         }
     }
 }
 
-// field function
+// open and close fields function
 function openCloseFields(fieldIndex) {
-    let field = getFieldByIndex(fieldIndex);
-    let subdivisions = document.getElementsByClassName(field);
-    let arrow = document.getElementById(field+"_arrow");
+    let field = fields[fieldIndex];
+    let fieldSubjects = getFieldSubjects(field);
+    let arrow = document.getElementById(field.dataset.field+"_arrow");
 
-    if(subdivisionIsOpen[fieldIndex] == true) {
-        for(let index = 0; index < subdivisions.length; index++) {
-            subdivisions[index].style.display = "none";
+    if(localStorage.getItem(`field${field.dataset.field}IsOpen`) == "true") {
+        for(let index = 0; index < fieldSubjects.length; index++) {
+            fieldSubjects[index].style.display = "none";
         }
         arrow.src = mainFolder + "assets/rightarrow.png";
-        subdivisionIsOpen[fieldIndex] = false;
+        localStorage.setItem(`field${field.dataset.field}IsOpen`, false);
     }
     else {
-        for(let index = 0; index < subdivisions.length; index++) {
-            subdivisions[index].style.display = "flex";
+        for(let index = 0; index < fieldSubjects.length; index++) {
+            fieldSubjects[index].style.display = "flex";
         }
         arrow.src = mainFolder + "assets/downarrow.png";
-        subdivisionIsOpen[fieldIndex] = true;
+        localStorage.setItem(`field${field.dataset.field}IsOpen`, true);
     }
-
-    localStorage.setItem(`field${fieldIndex}IsOpen`, subdivisions[0].style.display == "flex");
 }

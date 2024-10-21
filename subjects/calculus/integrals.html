@@ -17,35 +17,36 @@
                 </button>
             </div>
             <div class="searchbarcontainer">
-                <div class="searchbar">
+                <div id="searchbar" class="searchbar">
                     <div class="inputbox">
-                        <input placeholder="Pesquisar..."></input>
+                        <input placeholder="Pesquisar..." onkeyup="showSuggestions(this.value)"></input>
                     </div>
                     <div class="glass">
                         <img src="../../assets/searchicon.png" alt="">
                     </div>
                 </div>
+                <div id="searchbarsuggestions" class="searchbarsuggestions"></div>
             </div>
         </header>
         <div id="sidebar" class="sidebar">
-            <div class="tab" style="margin-top: 10px;">
+            <div data-tab="index" class="tab" style="margin-top: 10px;">
                 <a href="../../index.html">Home</a>
             </div>
-            <div>
+            <div data-field="calculus" class="field">
                 <img onclick="openCloseFields(index=0)" id="calculus_arrow" src="../../assets/rightarrow.png" alt="">
                 <p onclick="openCloseFields(index=0)">Calculus</p>
             </div>
-            <div class="tab subdivision calculus">
+            <div data-tab="derivatives" data-field="calculus" data-subject="derivatives" class="tab subject">
                 <a href="../../subjects/calculus/derivatives.html">Derivatives</a>
             </div>
-            <div class="tab subdivision calculus">
+            <div data-tab="integrals" data-field="calculus" data-subject="integrals" class="tab subject">
                 <a href="../../subjects/calculus/integrals.html">Integrals</a>
             </div>
-            <div>
+            <div data-field="analiticgeometry" class="field">
                 <img onclick="openCloseFields(index=1)" id="analiticgeometry_arrow" src="../../assets/rightarrow.png" alt="">
                 <p onclick="openCloseFields(index=1)">Analitic Geometry</p>
             </div>
-            <div class="tab subdivision analiticgeometry">
+            <div data-tab="conics" data-field="analiticgeometry" data-subject="conics" class="tab subject">
                 <a href="../../subjects/analiticgeometry/conics.html">Conics</a>
             </div>
         </div>
@@ -54,7 +55,7 @@
         </div>
         <div id="sidebarcloser_mobile" class="sidebarcloser_mobile" onclick="openCloseSidebar()"></div>
         <div class="filler"></div>
-        <script src="../../script.js"></script>
         <p class="welcome">Welcome to Integrals!</p>
+        <script src="../../script.js"></script>
     </body>
 </html>
