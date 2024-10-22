@@ -4,8 +4,8 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Questions Generator</title>
-        <link rel="stylesheet" href="../../reset.css">
-        <link rel="stylesheet" type="text/css" href="../../style.css">
+        <link rel="stylesheet" href="../reset.css">
+        <link rel="stylesheet" type="text/css" href="../style.css">
     </head>
     <body>
         <header>
@@ -22,7 +22,7 @@
                         <input id="searchbarinputfield" class="searchbarinputfield" placeholder="Search..." onkeyup="showSuggestions()"></input>
                     </div>
                     <div class="glass">
-                        <img src="../../assets/searchicon.png" alt="">
+                        <img src="../assets/searchicon.png" alt="">
                     </div>
                 </div>
                 <div id="searchbarsuggestions" class="searchbarsuggestions"></div>
@@ -30,34 +30,37 @@
         </header>
         <div id="sidebar" class="sidebar">
             <div data-tab="index" class="tab" style="margin-top: 10px;">
-                <a href="../../index.html">Home</a>
+                <a href="../index.html">Home</a>
             </div>
             <div data-field="calculus" class="field">
-                <img onclick="openCloseFields(index=0)" id="calculus_arrow" src="../../assets/arrow.png" alt="">
+                <img onclick="openCloseFields(index=0)" id="calculus_arrow" src="../assets/arrow.png" alt="">
                 <p onclick="openCloseFields(index=0)">Calculus</p>
             </div>
             <div data-tab="derivatives" data-field="calculus" data-subject="derivatives" class="tab subject">
-                <a href="../../subjects/calculus/derivatives.html">Derivatives</a>
+                <a href="../subjects/calculus/derivatives.html">Derivatives</a>
             </div>
             <div data-tab="integrals" data-field="calculus" data-subject="integrals" class="tab subject">
-                <a href="../../subjects/calculus/integrals.html">Integrals</a>
+                <a href="../subjects/calculus/integrals.html">Integrals</a>
             </div>
             <div data-field="analiticgeometry" class="field">
-                <img onclick="openCloseFields(index=1)" id="analiticgeometry_arrow" src="../../assets/arrow.png" alt="">
+                <img onclick="openCloseFields(index=1)" id="analiticgeometry_arrow" src="../assets/arrow.png" alt="">
                 <p onclick="openCloseFields(index=1)">Analitic Geometry</p>
             </div>
             <div data-tab="conics" data-field="analiticgeometry" data-subject="conics" class="tab subject">
-                <a href="../../subjects/analiticgeometry/conics.html">Conics</a>
+                <a href="../subjects/analiticgeometry/conics.html">Conics</a>
             </div>
         </div>
         <div id="sidebaropener" class="sidebaropener" onclick="openCloseSidebar()">
-            <img id="sidebaropenerarrow" src="../../assets/arrow.png" alt="">
+            <img id="sidebaropenerarrow" src="../assets/arrow.png" alt="">
         </div>
         <div id="sidebarcloser_mobile" class="sidebarcloser_mobile" onclick="openCloseSidebar()"></div>
         <div class="filler"></div>
         <div id="main-body" class="main-body">
-            <p class="welcome">Welcome to Integrals!</p>
+            <p class="welcome">Search results:</p>
+            <div class="links">
+                
+            </div>
         </div>
-        <script src="../../script.js"></script>
+        <script src="../script.js"></script>
     </body>
 </html>

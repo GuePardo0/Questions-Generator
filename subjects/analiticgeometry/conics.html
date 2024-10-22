@@ -19,7 +19,7 @@
             <div class="searchbarcontainer">
                 <div id="searchbar" class="searchbar">
                     <div class="inputbox">
-                        <input placeholder="Pesquisar..." onkeyup="showSuggestions(this.value)"></input>
+                        <input id="searchbarinputfield" class="searchbarinputfield" placeholder="Search..." onkeyup="showSuggestions()"></input>
                     </div>
                     <div class="glass">
                         <img src="../../assets/searchicon.png" alt="">
@@ -33,7 +33,7 @@
                 <a href="../../index.html">Home</a>
             </div>
             <div data-field="calculus" class="field">
-                <img onclick="openCloseFields(index=0)" id="calculus_arrow" src="../../assets/rightarrow.png" alt="">
+                <img onclick="openCloseFields(index=0)" id="calculus_arrow" src="../../assets/arrow.png" alt="">
                 <p onclick="openCloseFields(index=0)">Calculus</p>
             </div>
             <div data-tab="derivatives" data-field="calculus" data-subject="derivatives" class="tab subject">
@@ -43,7 +43,7 @@
                 <a href="../../subjects/calculus/integrals.html">Integrals</a>
             </div>
             <div data-field="analiticgeometry" class="field">
-                <img onclick="openCloseFields(index=1)" id="analiticgeometry_arrow" src="../../assets/rightarrow.png" alt="">
+                <img onclick="openCloseFields(index=1)" id="analiticgeometry_arrow" src="../../assets/arrow.png" alt="">
                 <p onclick="openCloseFields(index=1)">Analitic Geometry</p>
             </div>
             <div data-tab="conics" data-field="analiticgeometry" data-subject="conics" class="tab subject">
@@ -51,11 +51,13 @@
             </div>
         </div>
         <div id="sidebaropener" class="sidebaropener" onclick="openCloseSidebar()">
-            <img id="sidebaropenerarrow" src="../../assets/rightarrow.png" alt="">
+            <img id="sidebaropenerarrow" src="../../assets/arrow.png" alt="">
         </div>
         <div id="sidebarcloser_mobile" class="sidebarcloser_mobile" onclick="openCloseSidebar()"></div>
         <div class="filler"></div>
-        <p class="welcome">Welcome to Conics!</p>
+        <div id="main-body" class="main-body">
+            <p class="welcome">Welcome to Conics!</p>
+        </div>
         <script src="../../script.js"></script>
     </body>
 </html>
