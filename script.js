@@ -143,7 +143,7 @@ function search() {
     let inputValue = searchbarInputField.value;
     let suggestions = getSuggestions(inputValue);
     if(inputValue != "") {
-        window.open("miscpages/searchresults.html", "_self");
+        window.open(mainFolder + "miscpages/searchresults.html", "_self");
     }
 }
 
