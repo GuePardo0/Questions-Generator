@@ -89,7 +89,7 @@ function getSuggestions(inputValue) {
             }
             if(subjects[index].dataset.subject.includes(inputValue) && subjects[index].dataset.subject.startsWith(inputValue)) {
                 suggestions.push(subjects[index]);
-                suggestionsStr.push(subjects[index].innerText.toLowerCase());
+                suggestionsStr.push(subjects[index].dataset.subject.toLowerCase());
                 numberOfSuggestions++;
             }
         }
