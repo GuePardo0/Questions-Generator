@@ -32,11 +32,13 @@ for(let index = 6; index < fullpath.length; index++) {
 if(localStorage.getItem("sidebarIsOpen") == "true") {
     sidebar.classList.add("sidebarisopen");
     sidebarOpener.classList.add("sidebarisopen");
-    mainBody.classList.add("sidebarisopen")
     sidebarOpenerArrow.style = "transform: rotate(90deg);";
     
     if(window.innerWidth <= 720) {
         sidebarCloserMobile.style.display = "block";
+    }
+    else {
+        mainBody.classList.add("sidebarisopen");
     }
 }
 for(let fieldIndex = 0; fieldIndex < fields.length; fieldIndex++) {
@@ -151,20 +153,25 @@ function openCloseSidebar() {
     sidebar.style = "transition: left 0.4s;";
     sidebarOpener.classList.toggle("sidebarisopen");
     sidebarOpener.style = "transition: left 0.4s;";
-    mainBody.classList.toggle("sidebarisopen");
 
     if(localStorage.getItem("sidebarIsOpen") == "true") {
         sidebarOpenerArrow.style = "transform: rotate(-90deg);";
-        mainBody.style = "animation-name: close";
         if(window.innerWidth <= 720) {
             sidebarCloserMobile.style.display = "none";
+        }
+        else {
+            mainBody.classList.toggle("sidebarisopen");
+            mainBody.style = "animation-name: close";
         }
     }
     else {
         sidebarOpenerArrow.style = "transform: rotate(90deg);";
-        mainBody.style = "animation-name: open";
         if(window.innerWidth <= 720) {
             sidebarCloserMobile.style.display = "block";
+        }
+        else {
+            mainBody.classList.toggle("sidebarisopen");
+            mainBody.style = "animation-name: open";
         }
     }
 
