@@ -15,7 +15,7 @@ let subjects = document.getElementsByClassName("subject");
 // get the path
 let mainFolder = "";
 let fullpath = window.location.pathname;
-let depth = Array.from(fullpath.slice(fullpath.indexOf("QuestionsGenerator")).matchAll("/")).length - 1;
+let depth = Array.from(fullpath.slice(fullpath.indexOf("Questions-Generator")).matchAll("/")).length - 1;
 for(index = 0; index < depth; index++) {
     mainFolder += "../";
 }
