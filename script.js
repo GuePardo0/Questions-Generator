@@ -1,13 +1,14 @@
 let suggestionsBox = document.getElementById("searchbarsuggestions");
 let searchbar = document.getElementById("searchbar");
 let searchbarInputField = document.getElementById("searchbarinputfield");
-searchbarInputField.value = "";
 let searchbarCloser = document.getElementById("searchbarcloser");
 let sidebar = document.getElementById("sidebar");
 let sidebarOpener = document.getElementById("sidebaropener");
 let sidebarOpenerArrow = document.getElementById("sidebaropenerarrow");
 let sidebarCloserMobile = document.getElementById("sidebarcloser_mobile");
 let mainBody = document.getElementById("main-body");
+let searchinput = document.getElementById("searchinput");
+let searchresults = document.getElementById("searchresults");
 let tabs = document.getElementsByClassName("tab");
 let fields = document.getElementsByClassName("field");
 let subjects = document.getElementsByClassName("subject");
@@ -28,13 +29,23 @@ for(let index = 6; index < fullpath.length; index++) {
     currentTab = fullpath[fullpath.length-index] + currentTab;
 }
 
+// set search results
+if(currentTab == "searchresults") {
+    searchresults.innerHTML = "";
+    searchinput.innerHTML += localStorage.getItem("searchInput");
+    for(let index = 0; index < localStorage.getItem("searchResultsLength"); index++) {
+        let result = subjects[localStorage.getItem(`searchResult${index}`)]
+        searchresults.innerHTML += `<div class="searchresult"><a href="${mainFolder}subjects/${result.dataset.field}/${result.dataset.tab}.html">${capitalizeFirstLetter(result.dataset.subject)}</a></div>`
+    }
+}
+
 // remember stuff that were done in other tabs
 if(localStorage.getItem("sidebarIsOpen") == "true") {
     sidebar.classList.add("sidebarisopen");
     sidebarOpener.classList.add("sidebarisopen");
     sidebarOpenerArrow.style = "transform: rotate(90deg);";
     
-    if(window.innerWidth <= 720) {
+    if(window.innerWidth <= 768) {
         sidebarCloserMobile.style.display = "block";
     }
     else {
@@ -80,9 +91,10 @@ function getFieldSubjects(field) {
 // search bar functions
 function getSuggestions(inputValue) {
     let suggestions = [];
+    let suggestionsStr = [];
+    let suggestionsIndex = [];
     if(inputValue.length != 0) {
         let numberOfSuggestions = 0;
-        let suggestionsStr = [];
         for(let index = 0; index < subjects.length; index++) { // find results with matching start
             if(numberOfSuggestions == 5) {
                 break;
@@ -90,6 +102,7 @@ function getSuggestions(inputValue) {
             if(subjects[index].dataset.subject.includes(inputValue) && subjects[index].dataset.subject.startsWith(inputValue)) {
                 suggestions.push(subjects[index]);
                 suggestionsStr.push(subjects[index].dataset.subject.toLowerCase());
+                suggestionsIndex.push(index);
                 numberOfSuggestions++;
             }
         }
@@ -99,17 +112,18 @@ function getSuggestions(inputValue) {
             }
             if(subjects[index].dataset.subject.includes(inputValue) && !(suggestionsStr.includes(subjects[index].dataset.subject))) {
                 suggestions.push(subjects[index]);
+                suggestionsIndex.push(index);
                 numberOfSuggestions++;
             }
         }
     }
-    return suggestions;
+    return [suggestions, suggestionsIndex];
 }
 let roundedBorder = "border-bottom-left-radius: 21.6px; border-bottom-right-radius: 21.6px;";
 let notRoundedBorder = "border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;";
 function showSuggestions(event) {
     inputValue = searchbarInputField.value.toLowerCase();
-    let suggestions = getSuggestions(inputValue);
+    let suggestions = getSuggestions(inputValue)[0];
     if(inputValue.length == 0) {
         clearSuggestions();
         return;
@@ -118,7 +132,8 @@ function showSuggestions(event) {
         let numberOfSuggestions = 0;
         suggestionsBox.innerHTML = "";
         for(let index = 0; index < suggestions.length; index++) {
-            suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" href="${mainFolder}subjects/${suggestions[index].dataset.field}/${suggestions[index].dataset.tab}.html">${capitalizeFirstLetter(suggestions[index].dataset.subject)}</a></div>`;
+            let suggestion = suggestions[index];
+            suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" href="${mainFolder}subjects/${suggestion.dataset.field}/${suggestion.dataset.tab}.html">${capitalizeFirstLetter(suggestion.dataset.subject)}</a></div>`;
         }
         if(suggestions.length == 0) {
             suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" style="cursor: default">Page not found</a></div>`;
@@ -141,8 +156,13 @@ function clearSuggestions() {
 }
 function search() {
     let inputValue = searchbarInputField.value;
-    let suggestions = getSuggestions(inputValue);
+    let suggestionsIndex = getSuggestions(inputValue)[1];
     if(inputValue != "") {
+        for(let index = 0; index < suggestionsIndex.length; index++) {
+            localStorage.setItem(`searchResult${index}`, suggestionsIndex[index]);
+        }
+        localStorage.setItem("searchResultsLength", suggestionsIndex.length);
+        localStorage.setItem("searchInput", inputValue)
         window.open(mainFolder + "miscpages/searchresults.html", "_self");
     }
 }
@@ -156,7 +176,7 @@ function openCloseSidebar() {
 
     if(localStorage.getItem("sidebarIsOpen") == "true") {
         sidebarOpenerArrow.style = "transform: rotate(-90deg);";
-        if(window.innerWidth <= 720) {
+        if(window.innerWidth <= 768) {
             sidebarCloserMobile.style.display = "none";
         }
         else {
@@ -166,7 +186,7 @@ function openCloseSidebar() {
     }
     else {
         sidebarOpenerArrow.style = "transform: rotate(90deg);";
-        if(window.innerWidth <= 720) {
+        if(window.innerWidth <= 768) {
             sidebarCloserMobile.style.display = "block";
         }
         else {
@@ -179,8 +199,8 @@ function openCloseSidebar() {
 }
 
 // open and close fields function
-function openCloseFields(fieldIndex) {
-    let field = fields[fieldIndex];
+function openCloseFields(event) {
+    let field = this;
     let fieldSubjects = getFieldSubjects(field);
     let arrow = document.getElementById(field.dataset.field+"_arrow");
 
@@ -201,3 +221,6 @@ function openCloseFields(fieldIndex) {
 }
 
 searchbarInputField.addEventListener("keyup", showSuggestions, false)
+for(let index = 0; index < fields.length; index++) {
+    fields[index].addEventListener("click", openCloseFields, false)
+}

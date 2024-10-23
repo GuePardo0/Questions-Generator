@@ -22,7 +22,7 @@
                         <input id="searchbarinputfield" class="searchbarinputfield" placeholder="Search..." onkeyup="showSuggestions()"></input>
                     </div>
                     <div class="glass" onclick="search()">
-                        <img src="assets/searchicon.png" alt="">
+                        <img src="../assets/searchicon.png" alt="">
                     </div>
                 </div>
                 <div id="searchbarsuggestions" class="searchbarsuggestions"></div>
@@ -57,8 +57,9 @@
         <div id="searchbarcloser" class="searchbarcloser" onclick="clearSuggestions()"></div>
         <div class="filler"></div>
         <div id="main-body" class="main-body">
-            <p class="welcome">Search results:</p>
-            <div class="links">
+            <h2 id="searchinput">Search input: </h1>
+            <h1 style="padding: 0px 24.15px 10px 24.15px; width: calc(70% - 48.3px); text-align: start;">Results:</h1>
+            <div id="searchresults" class="searchresults">
                 
             </div>
         </div>

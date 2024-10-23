@@ -307,11 +307,14 @@ header {
 }
 
 .main-body {
+    display: flex;
     position: absolute;
     right: 0px;
     width: calc(100vw - 20px);
     padding: 0px 10px 0px 10px;
     animation-duration: 0.4s;
+    align-items: center;
+    flex-direction: column;
 }
 
 .main-body.sidebarisopen {
@@ -343,7 +346,46 @@ h1 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-@media screen and (max-width: 720px) {
+h2 {
+    padding: 20px 12.075px 20px 12.075px;
+    width: calc(70% - 24.15px);
+    font-size: 23px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.searchresults {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.searchresult {
+    display: flex;
+    background-color: white;
+    width: 100%;
+    height: 39.7px;
+    margin-bottom: 8px;
+    border-radius: 19.85px;
+    border-style: solid;
+    border-color: var(--searchbar);
+    border-width: 2px;
+    align-items: center;
+}
+
+.searchresult a {
+    width: 100%;
+    height: 100%;
+    line-height: 39.7px;
+    padding-left: 24.15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
     .sidebaropener {
         display: none;
     }
