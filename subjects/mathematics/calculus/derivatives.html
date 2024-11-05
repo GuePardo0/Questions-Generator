@@ -4,8 +4,8 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Questions Generator</title>
-        <link rel="stylesheet" href="reset.css">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="../../../reset.css">
+        <link rel="stylesheet" type="text/css" href="../../../style.css">
     </head>
     <body>
         <header>
@@ -19,10 +19,10 @@
             <div class="searchbarcontainer">
                 <div id="searchbar" class="searchbar">
                     <div class="inputbox">
-                        <input data-textindex="0" data-misctext="placeholder" id="searchbarinputfield" class="searchbarinputfield misctext" placeholder="Search..." onkeyup="showSuggestions()"></input>
+                        <input data-misctext="placeholder" id="searchbarinputfield" class="searchbarinputfield misctext" placeholder="Search..." onkeyup="showSuggestions()"></input>
                     </div>
                     <div class="glass" onclick="search()">
-                        <img src="assets/searchicon.png" alt="">
+                        <img src="../../../assets/searchicon.png" alt="">
                     </div>
                 </div>
                 <div id="searchbarsuggestions" class="searchbarsuggestions"></div>
@@ -30,78 +30,77 @@
         </header>
         <div id="sidebar" class="sidebar">
             <div data-tab="index" class="tab" style="margin-top: 10px;">
-                <a href="index.html">Home</a>
+                <a href="../../../index.html">Home</a>
             </div>
             <div onclick="openCloseFields()" data-field="mathematics" class="field">
                 <div>
-                    <img id="mathematics_arrow" src="assets/arrow.png" alt="">
+                    <img id="mathematics_arrow" src="../../../assets/arrow.png" alt="">
                 </div>
                 <p>Mathematics</p>
             </div>
             <div data-parentfield="mathematics" class="subfield">
                 <div onclick="openCloseFields()" data-field="analiticgeometry" class="field" style="padding-left: 15px;">
                     <div>
-                        <img id="analiticgeometry_arrow" src="assets/arrow.png" alt="">
+                        <img id="analiticgeometry_arrow" src="../../../assets/arrow.png" alt="">
                     </div>
                     <p>Analitic Geometry</p>
                 </div>
-                <div data-url="subjects/mathematics/analiticgeometry/conics.html" data-tab="conics" data-parentfield="analiticgeometry" data-subject="conics" class="tab subject">
-                    <a href="subjects/mathematics/analiticgeometry/conics.html" style="padding-left: 40px;">Conics</a>
+                <div data-url="../../../subjects/mathematics/analiticgeometry/conics.html" data-tab="conics" data-parentfield="analiticgeometry" data-subject="conics" class="tab subject">
+                    <a href="../../../subjects/mathematics/analiticgeometry/conics.html" style="padding-left: 40px;">Conics</a>
                 </div>
             </div>
             <div data-parentfield="mathematics" class="subfield">
                 <div onclick="openCloseFields()" data-field="calculus" class="field" style="padding-left: 15px;">
                     <div>
-                        <img id="calculus_arrow" src="assets/arrow.png" alt="">
+                        <img id="calculus_arrow" src="../../../assets/arrow.png" alt="">
                     </div>
                     <p>Calculus</p>
                 </div>
-                <div data-url="subjects/mathematics/calculus/derivatives.html" data-tab="derivatives" data-parentfield="calculus" data-subject="derivatives" class="tab subject">
-                    <a href="subjects/mathematics/calculus/derivatives.html" style="padding-left: 40px;">Derivatives</a>
+                <div data-url="../../../subjects/mathematics/calculus/derivatives.html" data-tab="derivatives" data-parentfield="calculus" data-subject="derivatives" class="tab subject">
+                    <a href="../../../subjects/mathematics/calculus/derivatives.html" style="padding-left: 40px;">Derivatives</a>
                 </div>
-                <div data-url="subjects/mathematics/calculus/integrals.html" data-tab="integrals" data-parentfield="calculus" data-subject="integrals" class="tab subject">
-                    <a href="subjects/mathematics/calculus/integrals.html" style="padding-left: 40px;">Integrals</a>
+                <div data-url="../../../subjects/mathematics/calculus/integrals.html" data-tab="integrals" data-parentfield="calculus" data-subject="integrals" class="tab subject">
+                    <a href="../../../subjects/mathematics/calculus/integrals.html" style="padding-left: 40px;">Integrals</a>
                 </div>
             </div>
             <div data-parentfield="mathematics" class="subfield">
                 <div onclick="openCloseFields()" data-field="discretemathematics" class="field" style="padding-left: 15px;">
                     <div>
-                        <img id="discretemathematics_arrow" src="assets/arrow.png" alt="">
+                        <img id="discretemathematics_arrow" src="../../../assets/arrow.png" alt="">
                     </div>
                     <p>Discrete Mathematics</p>
                 </div>
-                <div data-url="subjects/mathematics/discretemathematics/sets.html" data-tab="sets" data-parentfield="discretemathematics" data-subject="sets" class="tab subject">
-                    <a href="subjects/mathematics/discretemathematics/sets.html" style="padding-left: 40px;">Sets</a>
+                <div data-url="../../../subjects/mathematics/discretemathematics/sets.html" data-tab="sets" data-parentfield="discretemathematics" data-subject="sets" class="tab subject">
+                    <a href="../../../subjects/mathematics/discretemathematics/sets.html" style="padding-left: 40px;">Sets</a>
                 </div>
             </div>
             <div data-parentfield="mathematics" class="subfield">
-                <div data-url="subjects/mathematics/addition.html" data-tab="addition" data-parentfield="mathematics" data-subject="addition" class="tab subject">
-                    <a href="subjects/mathematics/addition.html" style="padding-left: 25px;">Addition</a>
+                <div data-url="../../../subjects/mathematics/addition.html" data-tab="addition" data-parentfield="mathematics" data-subject="addition" class="tab subject">
+                    <a href="../../../subjects/mathematics/addition.html" style="padding-left: 25px;">Addition</a>
                 </div>
             </div>
         </div>
         <div id="sidebaropener" class="sidebaropener" onclick="openCloseSidebar()">
-            <img id="sidebaropenerarrow" src="assets/arrow.png" alt="">
+            <img id="sidebaropenerarrow" src="../../../assets/arrow.png" alt="">
         </div>
         <div class="filler"></div>
         <div id="main-body" class="main-body">
             <div class="bodybuttons">
-                <div id="optionsbutton" class="button" style="display: none;">
-                    <img src="assets/optionsicon.png" alt="">
+                <div id="optionsbutton" class="button">
+                    <img src="../../../assets/optionsicon.png" alt="">
                 </div>
                 <div id="languagebutton" class="button">
-                    <img src="assets/languageicon.png" alt="">
+                    <img src="../../../assets/languageicon.png" alt="">
                 </div>
             </div>
-            <p data-textindex="0" class="welcome text">Welcome to Questions Generator!</p>
-            <h1 data-textindex="1" class="text">In here you can generate questions about various fields of study to test your skills.</h1>
+            <p class="welcome">Welcome to Derivatives!</p>
             <div id="popups" class="popups">
                 <div style="display: flex; width: 100%; height: 100%; justify-content: center; align-items: center;">
                     <div id="optionspopup" class="popup options">
                         <p>Valid Questions</p>
                     </div>
                     <div id="languagepopup" class="popup language">
-                        <p data-textindex="2" class="text">Languages</p>
+                        <p class="text">Languages</p>
                         <div data-language="english" class="languagechangebutton">
                             <p>English</p>
                         </div>
@@ -115,6 +114,6 @@
         </div>
         <div id="sidebarcloser_mobile" class="sidebarcloser_mobile" onclick="openCloseSidebar()"></div>
         <div id="searchbarcloser" class="searchbarcloser" onclick="clearSuggestions()"></div>
-        <script src="script.js"></script>
+        <script src="../../../script.js"></script>
     </body>
 </html>

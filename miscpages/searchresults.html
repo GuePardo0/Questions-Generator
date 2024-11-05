@@ -32,22 +32,47 @@
             <div data-tab="index" class="tab" style="margin-top: 10px;">
                 <a href="../index.html">Home</a>
             </div>
-            <div data-field="calculus" class="field">
-                <img onclick="openCloseFields(index=0)" id="calculus_arrow" src="../assets/arrow.png" alt="">
-                <p onclick="openCloseFields(index=0)">Calculus</p>
+            <div onclick="openCloseFields()" data-field="mathematics" class="field">
+                <div>
+                    <img id="mathematics_arrow" src="../assets/arrow.png" alt="">
+                </div>
+                <p>Mathematics</p>
             </div>
-            <div data-tab="derivatives" data-field="calculus" data-subject="derivatives" class="tab subject">
-                <a href="../subjects/calculus/derivatives.html">Derivatives</a>
+            <div data-parentfield="mathematics" class="subfield">
+                <div onclick="openCloseFields()" data-field="analiticgeometry" class="field" style="padding-left: 15px;">
+                    <div>
+                        <img id="analiticgeometry_arrow" src="../assets/arrow.png" alt="">
+                    </div>
+                    <p>Analitic Geometry</p>
+                </div>
+                <div data-tab="conics" data-parentfield="analiticgeometry" data-subject="conics" class="tab subject">
+                    <a href="../subjects/analiticgeometry/conics.html" style="padding-left: 70px;">Conics</a>
+                </div>
             </div>
-            <div data-tab="integrals" data-field="calculus" data-subject="integrals" class="tab subject">
-                <a href="../subjects/calculus/integrals.html">Integrals</a>
+            <div data-parentfield="mathematics" class="subfield">
+                <div onclick="openCloseFields()" data-field="calculus" class="field" style="padding-left: 15px;">
+                    <div>
+                        <img id="calculus_arrow" src="../assets/arrow.png" alt="">
+                    </div>
+                    <p>Calculus</p>
+                </div>
+                <div data-tab="derivatives" data-parentfield="calculus" data-subject="derivatives" class="tab subject">
+                    <a href="../subjects/calculus/derivatives.html" style="padding-left: 70px;">Derivatives</a>
+                </div>
+                <div data-tab="integrals" data-parentfield="calculus" data-subject="integrals" class="tab subject">
+                    <a href="../subjects/calculus/integrals.html" style="padding-left: 70px;">Integrals</a>
+                </div>
             </div>
-            <div data-field="analiticgeometry" class="field">
-                <img onclick="openCloseFields(index=1)" id="analiticgeometry_arrow" src="../assets/arrow.png" alt="">
-                <p onclick="openCloseFields(index=1)">Analitic Geometry</p>
-            </div>
-            <div data-tab="conics" data-field="analiticgeometry" data-subject="conics" class="tab subject">
-                <a href="../subjects/analiticgeometry/conics.html">Conics</a>
+            <div data-parentfield="mathematics" class="subfield">
+                <div onclick="openCloseFields()" data-field="discretemathematics" class="field" style="padding-left: 15px;">
+                    <div>
+                        <img id="discretemathematics_arrow" src="../assets/arrow.png" alt="">
+                    </div>
+                    <p>Discrete Mathematics</p>
+                </div>
+                <div data-tab="sets" data-parentfield="discretemathematics" data-subject="sets" class="tab subject">
+                    <a href="../subjects/discretemathematics/sets.html" style="padding-left: 70px;">Sets</a>
+                </div>
             </div>
         </div>
         <div id="sidebaropener" class="sidebaropener" onclick="openCloseSidebar()">

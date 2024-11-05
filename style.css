@@ -93,8 +93,8 @@ header {
 .sidebarbutton {
     background-color: transparent;
     display: flex;
-    height: 100%;
-    aspect-ratio: 1;
+    height: 72px;
+    width: 72px;
     border: none;
     align-items: center;
     flex-direction: column;
@@ -205,14 +205,36 @@ header {
     cursor: pointer;
 }
 
-.searchbarcloser {
-    display: none;
-    position: fixed;
-    top: 72px;
-    width: 100vw;
-    height: calc(100vh - 72px);
-    background-color: #00000080;
-    z-index: 3;
+.searchresults {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.searchresult, .languagechangebutton {
+    display: flex;
+    background-color: white;
+    width: 100%;
+    height: 39.7px;
+    margin-bottom: 8px;
+    border-radius: 19.85px;
+    border-style: solid;
+    border-color: var(--searchbar);
+    border-width: 2px;
+    align-items: center;
+}
+
+.searchresult a, .languagechangebutton p {
+    width: 100%;
+    height: 100%;
+    line-height: 39.7px;
+    padding-left: 24.15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    cursor: pointer;
 }
 
 .sidebaropener {
@@ -241,16 +263,6 @@ header {
     transform: rotate(-90deg);
 }
 
-.sidebarcloser_mobile {
-    display: none;
-    position: fixed;
-    top: 72px;
-    width: 100vw;
-    height: calc(100vh - 72px);
-    background-color: #00000080;
-    z-index: 1;
-}
-
 .sidebar {
     position: fixed;
     top: 72px;
@@ -269,41 +281,52 @@ header {
 
 .sidebar div {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.sidebar .subject {
+.sidebar .field, .sidebar .subject {
+    height: 35px;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.sidebar .field:hover, .sidebar .tab:hover {
+    background-color: var(--primary-light);
+}
+
+.sidebar .subfield, .sidebar .subject {
     display: none;
 }
 
-.sidebar a, .sidebar p {
-    display: inline-block;
-    width: 100%;
+.field div {
+    display: flex;
+    width: 40px;
     height: 35px;
-    line-height: 35px;
-    padding-left: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar img {
+    width: 30px;
+    transform: rotate(-90deg);
+}
+
+.sidebar a, .sidebar p {
+    display: inline;
+    width: calc(100% - 40px);
     text-decoration: none;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     color: var(--sidebartext);
-    cursor: pointer;
 }
 
-.tab a {
-    padding-left: 55px;
-}
-
-.sidebar img {
-    position: absolute;
-    width: 30px;
-    left: 5px;
-    cursor: pointer;
-    transform: rotate(-90deg);
-}
-
-.sidebar div:hover {
-    background-color: var(--primary-light);
+.sidebar a {
+    line-height: 35px;
+    width: 100%;
+    padding-left: 40px;
 }
 
 .main-body {
@@ -331,6 +354,75 @@ header {
     to {width: calc(100vw - 20px);}
 }
 
+.bodybuttons {
+    display: flex;
+    width: 100%;
+    margin-top: 8px;
+    justify-content: end;
+}
+
+.button {
+    display: flex;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: var(--searchbar);
+    border-style: solid;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.button img {
+    width: 22px;
+}
+
+.popups {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: calc(100vh - 72px);
+    border-radius: 10px;
+    animation-duration: 0.4s;
+}
+
+.popups.sidebarisopen {
+    width: calc(100% - 250px);
+}
+
+@keyframes openpopup {
+    from {width: 100%;}
+    to {width: calc(100vw - 250px);}
+}
+
+@keyframes closepopup {
+    from {width: calc(100vw - 250px);}
+    to {width: 100%;}
+}
+
+.popups .popup {
+    display: none;
+    width: calc(40% + 142px);
+    height: calc(75vh - 72px);
+    border-radius: 10px;
+    border-width: 2.5px;
+    border-color: var(--primary-very-light);
+    border-style: solid;
+    background-color: white;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.popupcloser {
+    display: none;
+    position: fixed;
+    top: 72px;
+    width: 100%;
+    height: calc(100vh - 72px);
+    background-color: #00000080;
+}
+
 .welcome {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -353,36 +445,24 @@ h2 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.searchresults {
-    width: 70%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.searchbarcloser {
+    display: none;
+    position: fixed;
+    top: 72px;
+    width: 100vw;
+    height: calc(100vh - 72px);
+    background-color: #00000080;
+    z-index: 3;
 }
 
-.searchresult {
-    display: flex;
-    background-color: white;
-    width: 100%;
-    height: 39.7px;
-    margin-bottom: 8px;
-    border-radius: 19.85px;
-    border-style: solid;
-    border-color: var(--searchbar);
-    border-width: 2px;
-    align-items: center;
-}
-
-.searchresult a {
-    width: 100%;
-    height: 100%;
-    line-height: 39.7px;
-    padding-left: 24.15px;
-    text-decoration: none;
-    font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    cursor: pointer;
+.sidebarcloser_mobile {
+    display: none;
+    position: fixed;
+    top: 72px;
+    width: 100vw;
+    height: calc(100vh - 72px);
+    background-color: #00000080;
+    z-index: 1;
 }
 
 @media screen and (max-width: 768px) {
@@ -391,12 +471,18 @@ h2 {
     }
 }
 
-@media screen and (max-width: 390px) {
-    .searchbar {
-        width: 240px;
+@media screen and (max-width: 405px) {
+    .languagebutton {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .searchbarcontainer {
+        width: 238px;
     }
 
     .searchbarsuggestions {
-        width: 243.2px;
+        width: 238px;
     }
 }
