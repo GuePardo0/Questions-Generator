@@ -50,7 +50,7 @@ function generateQuestions(questionIndex) {
     let goodNumbers = generateGoodNumbers(questionIndex);
     let question = "";
     if(questionIndex == 0) {
-        question = `<p>${languageQuestions[0]}</p><p> ${goodNumbers[0]}<br>+${goodNumbers[1]}</p>`;
+        question = `<p>${languageQuestions[0]}</p><p style="text-align: right;">${goodNumbers[0]}<br>+${goodNumbers[1]}</p>`;
     }
     if(questionIndex == 1) {
         question = `<p>${languageQuestions[1]}</p><p>${goodNumbers[0]}+${goodNumbers[1]}</p>`;
