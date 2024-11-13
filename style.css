@@ -212,7 +212,7 @@ header {
     flex-direction: column;
 }
 
-.searchresult, .languagechangebutton {
+.searchresult {
     display: flex;
     background-color: white;
     width: 100%;
@@ -225,7 +225,7 @@ header {
     align-items: center;
 }
 
-.searchresult a, .languagechangebutton p {
+.searchresult a {
     width: 100%;
     height: 100%;
     line-height: 39.7px;
@@ -365,6 +365,7 @@ header {
     display: flex;
     width: 34px;
     height: 34px;
+    margin-right: 5px;
     border-radius: 10px;
     border-width: 2.5px;
     border-color: var(--searchbar);
@@ -423,6 +424,40 @@ header {
     background-color: #00000080;
 }
 
+.languagepopup {
+    align-items: center;
+}
+
+.languagetext {
+    margin: 11px 0px 11px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.languagechangebutton {
+    display: flex;
+    background-color: white;
+    width: calc(100% - 2px);
+    height: 39.7px;
+    margin-bottom: 8px;
+    border-style: solid;
+    border-color: var(--searchbar);
+    border-width: 2px 1px 2px 1px;
+    align-items: center;
+}
+
+.languagechangebutton p {
+    width: 100%;
+    height: 100%;
+    line-height: 39.7px;
+    padding-left: 24.15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    cursor: pointer;
+}
+
 .welcome {
     padding-top: 40px;
     padding-bottom: 40px;
@@ -432,7 +467,7 @@ header {
 }
 
 h1 {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     text-align: center;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
@@ -443,6 +478,39 @@ h2 {
     width: calc(70% - 24.15px);
     font-size: 23px;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.question_box {
+    display: flex;
+    height: calc(52vh - 139.6px);
+    align-items: center;
+    flex-direction: column;
+}
+
+.question_box p {
+    text-align: right;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.generatebuttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.generatebuttons button {
+    padding: 8px 0px 8px 0px;
+    width: calc(20vw + 236px);
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 100vw;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
 }
 
 .searchbarcloser {

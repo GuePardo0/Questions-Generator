@@ -20,14 +20,14 @@ let fields = document.getElementsByClassName("field");
 let subFields = document.getElementsByClassName("subfield");
 let subjects = document.getElementsByClassName("subject");
 let languages = document.getElementsByClassName("languagechangebutton");
-let texts = document.getElementsByClassName("text");
-let miscTexts = document.getElementsByClassName("misctext");
-const english = ["Welcome to Questions Generator!", "In here you can generate questions about various fields of study to test your skills.", "Language"];
-const miscEnglish = ["Search..."];
-const portuguese = ["Bem-vindo ao Gerador de Questões!", "Aqui você pode gerar questões sobre diversas áreas do conhecimento para testar suas habilidades.", "Idioma"];
-const miscPortuguese = ["Pesquisar..."];
-let language = english;
-let miscLanguage = miscEnglish;
+let translateTextsFixed = document.getElementsByClassName("translate_text_fixed");
+let translateTextsFixedMisc = document.getElementsByClassName("translate_text_fixed_misc");
+const englishFixed = ["Home", "Mathematics", "Analitic Geometry", "Conics", "Calculus", "Derivatives", "Integrals", "Discrete Mathematics", "Sets", "Addition", "Generate Question", "Show Answer", "Language", "Page not found"];
+const englishFixedMisc = ["Search..."];
+const portugueseFixed = ["Início", "Matemática", "Geometria Analítica", "Cônicas", "Cálculo", "Derivadas", "Integrais", "Matemática Discreta", "Conjuntos", "Adição", "Gerar Questão", "Mostrar Resposta", "Idioma", "Página não encontrada"];
+const portugueseFixedMisc = ["Pesquisar..."];
+let language = englishFixed;
+let miscLanguage = englishFixedMisc;
 
 // get the path
 let mainFolder = "";
@@ -45,17 +45,7 @@ for(let index = 6; index < fullpath.length; index++) {
     currentTab = fullpath[fullpath.length-index] + currentTab;
 }
 
-// set search results
-if(currentTab == "searchresults") {
-    searchresults.innerHTML = "";
-    searchinput.innerHTML += localStorage.getItem("searchInput");
-    for(let index = 0; index < localStorage.getItem("searchResultsLength"); index++) {
-        let result = subjects[localStorage.getItem(`searchResult${index}`)]
-        searchresults.innerHTML += `<div class="searchresult"><a href="${result.dataset.url}">${capitalizeFirstLetter(result.dataset.subject)}</a></div>`
-    }
-}
-
-// remember stuff that were done in other tabs
+// remember stuff that were done before
 if(localStorage.getItem("sidebarIsOpen") == "true") {
     sidebar.classList.add("sidebarisopen");
     sidebarOpener.classList.add("sidebarisopen");
@@ -81,7 +71,18 @@ for(let fieldIndex = 0; fieldIndex < fields.length; fieldIndex++) {
         arrow.style.transform = "rotate(0deg)";
     }
 }
-changeLanguage(localStorage.getItem("language"));
+changeLanguageScript(localStorage.getItem("language"));
+
+// set search results
+if(currentTab == "searchresults") {
+    searchresults.innerHTML = "";
+    searchinput.innerHTML += localStorage.getItem("searchInput");
+    for(let index = 0; index < localStorage.getItem("searchResultsLength"); index++) {
+        let result = subjects[localStorage.getItem(`searchResult${index}`)]
+        let resultText = removeAccents(cleanString(result.textContent));
+        searchresults.innerHTML += `<div class="searchresult"><a href="${result.dataset.url}">${capitalizeFirstLetter(resultText)}</a></div>`
+    }
+}
 
 // highlight the current tab
 for(let index = 0; index < tabs.length; index++) {
@@ -91,8 +92,37 @@ for(let index = 0; index < tabs.length; index++) {
 }
 
 // usefull functions
+function getRandomInt(min, max) {
+    max+=1;
+    return Math.floor(Math.random()*(max - min)+min);
+}
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+function cleanString(string) {
+    let newString = "";
+    for(let index = 0; index < string.length; index++) {
+        if(!(string[index] == " " || string[index] == "\n")) {
+            newString+=string[index];
+        }
+    }
+    return newString.toLowerCase();
+}
+function removeAccents(string) {
+    string = string.replace("á", "a");
+    string = string.replace("à", "a");
+    string = string.replace("â", "a");
+    string = string.replace("ã", "a");
+    string = string.replace("é", "e");
+    string = string.replace("ê", "e");
+    string = string.replace("í", "i");
+    string = string.replace("ó", "o");
+    string = string.replace("ô", "o");
+    string = string.replace("õ", "o");
+    string = string.replace("ú", "u");
+    string = string.replace("ü", "u");
+    string = string.replace("ç", "c");
+    return string;
 }
 function getFieldSubfields(parentField) {
     let fieldSubfields = [];
@@ -122,9 +152,10 @@ function getSuggestions(inputValue) {
             if(numberOfSuggestions == 5) {
                 break;
             }
-            if(subjects[index].dataset.subject.includes(inputValue) && subjects[index].dataset.subject.startsWith(inputValue)) {
+            let subjectText = removeAccents(cleanString(subjects[index].textContent));
+            if(subjectText.startsWith(inputValue)) {
                 suggestions.push(subjects[index]);
-                suggestionsStr.push(subjects[index].dataset.subject.toLowerCase());
+                suggestionsStr.push(subjectText);
                 suggestionsIndex.push(index);
                 numberOfSuggestions++;
             }
@@ -133,7 +164,8 @@ function getSuggestions(inputValue) {
             if(numberOfSuggestions == 5) {
                 break;
             }
-            if(subjects[index].dataset.subject.includes(inputValue) && !(suggestionsStr.includes(subjects[index].dataset.subject))) {
+            let subjectText = removeAccents(cleanString(subjects[index].textContent));
+            if(subjectText.includes(inputValue) && !(suggestionsStr.includes(subjectText))) {
                 suggestions.push(subjects[index]);
                 suggestionsIndex.push(index);
                 numberOfSuggestions++;
@@ -145,29 +177,32 @@ function getSuggestions(inputValue) {
 let roundedBorder = "border-bottom-left-radius: 21.6px; border-bottom-right-radius: 21.6px;";
 let notRoundedBorder = "border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;";
 function showSuggestions(event) {
-    inputValue = searchbarInputField.value.toLowerCase();
-    let suggestions = getSuggestions(inputValue)[0];
-    if(inputValue.length == 0) {
-        clearSuggestions();
-        return;
-    }
-    else {
-        let numberOfSuggestions = 0;
-        suggestionsBox.innerHTML = "";
-        for(let index = 0; index < suggestions.length; index++) {
-            let suggestion = suggestions[index];
-            suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" href="${suggestion.dataset.url}">${capitalizeFirstLetter(suggestion.dataset.subject)}</a></div>`;
+    if(this != window) {
+        inputValue = removeAccents(cleanString(searchbarInputField.value));
+        let suggestions = getSuggestions(inputValue)[0];
+        if(inputValue.length == 0) {
+            clearSuggestions();
+            return;
         }
-        if(suggestions.length == 0) {
-            suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" style="cursor: default">Page not found</a></div>`;
-        }
-        suggestions = document.getElementsByClassName("suggestion");
-        searchbar.style = notRoundedBorder;
-        searchbarCloser.style.display = "flex";
-        suggestions[suggestions.length-1].style = roundedBorder
-        document.getElementsByClassName("suggestion-link")[suggestions.length-1].style = roundedBorder;
-        if(event.key == "Enter") {
-            search();
+        else {
+            let numberOfSuggestions = 0;
+            suggestionsBox.innerHTML = "";
+            for(let index = 0; index < suggestions.length; index++) {
+                let suggestion = suggestions[index];
+                let suggestionText = cleanString(suggestion.textContent);
+                suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" href="${suggestion.dataset.url}">${capitalizeFirstLetter(suggestionText)}</a></div>`;
+            }
+            if(suggestions.length == 0) {
+                suggestionsBox.innerHTML += `<div class="suggestion"><a class="suggestion-link" style="cursor: default">${language[language.length-1]}</a></div>`;
+            }
+            suggestions = document.getElementsByClassName("suggestion");
+            searchbar.style = notRoundedBorder;
+            searchbarCloser.style.display = "flex";
+            suggestions[suggestions.length-1].style = roundedBorder
+            document.getElementsByClassName("suggestion-link")[suggestions.length-1].style = roundedBorder;
+            if(event.key == "Enter") {
+                search();
+            }
         }
     }
 }
@@ -274,38 +309,28 @@ function closePopup(event) {
 }
 
 // change language
-function changeLanguage(languageName) {
+function changeLanguageScript(languageName) {
     if(languageName == "english") {
-        language = english;
-        miscLanguage = miscEnglish;
+        language = englishFixed;
+        miscLanguage = englishFixedMisc;
         localStorage.setItem("language", "english");
     }
     if(languageName == "portuguese") {
-        language = portuguese;
-        miscLanguage = miscPortuguese;
+        language = portugueseFixed;
+        miscLanguage = portugueseFixedMisc;
         localStorage.setItem("language", "portuguese");
     }
-    for(let index = 0; index < languages.length; index++) {
-        for(let j = 0; j < texts.length; j++) {
-            if(texts[j].dataset.textindex == `${index}`) {
-                texts[j].innerHTML = language[index];
-                break;
-            }
-        }
+    for(let index = 0; index < translateTextsFixed.length; index++) {
+        translateTextsFixed[index].innerHTML = language[index];
     }
-    for(let index = 0; index < languages.length; index++) {
-        for(let j = 0; j < miscTexts.length; j++) {
-            if(miscTexts[j].dataset.textindex == `${index}`) {
-                if(miscTexts[j].dataset.misctext == "placeholder") {
-                    miscTexts[j].placeholder = miscLanguage[index];
-                }
-                break;
-            }
+    for(let index = 0; index < translateTextsFixedMisc.length; index++) {
+        if(translateTextsFixedMisc[index].dataset.translate_text_fixed_misc == "placeholder") {
+            translateTextsFixedMisc[index].placeholder = miscLanguage[index];
         }
     }
 }
-function changeLanguageEvent(event) {
-    changeLanguage(this.dataset.language);
+function changeLanguageScriptEvent(event) {
+    changeLanguageScript(this.dataset.language);
 }
 
 searchbarInputField.addEventListener("keyup", showSuggestions, false)
@@ -313,7 +338,7 @@ for(let index = 0; index < fields.length; index++) {
     fields[index].addEventListener("click", openCloseFields, false);
 }
 for(let index = 0; index < languages.length; index++) {
-    languages[index].addEventListener("click", changeLanguageEvent, false);
+    languages[index].addEventListener("click", changeLanguageScriptEvent, false);
 }
 optionsButton.addEventListener("click", openOptions, false);
 languageButton.addEventListener("click", openLanguage, false);
